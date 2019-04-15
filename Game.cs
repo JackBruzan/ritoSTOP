@@ -13,8 +13,8 @@ namespace riot
         {
             HttpClient client = new HttpClient();
 
-            string apiKey = "RGAPI-bad88fd9-3467-4052-af01-7fce08dbeee4";
-            var t = client.GetAsync($"https://na1.api.riotgames.com/lol/match/v4/matches/{gameID}/?api_key={apiKey}");
+            //string apiKey = "RGAPI-7bdf5f7e-bc68-4741-b9a2-0d470ee3d62b";
+            var t = client.GetAsync($"https://na1.api.riotgames.com/lol/match/v4/matches/{gameID}?api_key={API.apiKey}");
             dynamic gameJson = JObject.Parse(t.Result.Content.ReadAsStringAsync().Result.ToString());
 
             seasonId = gameJson.seasonId;
