@@ -9,7 +9,7 @@ namespace riot
     {
         static void Main(string[] args)
         {
-            Summoner summoner = new Summoner("SneakyFreaky");
+            Summoner summoner = new Summoner("do not type");
             LiveGame liveGame = new LiveGame(summoner.id);
 
             liveGame.GetSummonerRanks();

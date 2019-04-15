@@ -4,7 +4,6 @@ using Newtonsoft.Json.Linq;
 
 namespace riot
 {
-
     public class Summoner
     {
         public string summonerName;
