@@ -5,14 +5,14 @@ namespace riot
         public class BannedChampion
         {
             int pickTurn;
-            long championid;
-            long teamId;
+            string championid;
+            string teamId;
 
-            public BannedChampion(int inPickTurn, long inChampionid, long inTeamId)
+            public BannedChampion(string _championid, string _teamId, int _pickTurn)
             {
-                pickTurn = inPickTurn;
-                championid = inChampionid;
-                teamId = inTeamId;
+                pickTurn = _pickTurn;
+                championid = _championid;
+                teamId = _teamId;
             }
         }
     }

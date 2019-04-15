@@ -10,6 +10,7 @@ namespace riot
         public string accountId { get; }
         public bool live { get; }
         public List<CurrentGameParticipant> currentGameParticipants = new List<CurrentGameParticipant>();
+        public List<BannedChampion> bannedChampions = new List<BannedChampion>();
 
         public LiveGame(object accountId)
         {
@@ -30,6 +31,13 @@ namespace riot
                 {
                     CurrentGameParticipant currentGameParticipant = new CurrentGameParticipant(participant.summonerName.Value.ToString(), participant.championId.Value.ToString(), participant.summonerId.Value.ToString());
                     currentGameParticipants.Add(currentGameParticipant);
+                }
+
+                dynamic bannedChampionsJson = JArray.Parse(liveGameJson.bannedChampions.ToString());
+                foreach (var ban in bannedChampionsJson)
+                {
+                    BannedChampion bannedChampion = new BannedChampion(ban.championId.Value.ToString(), ban.teamId.Value.ToString(), (Int32)ban.pickTurn.Value);
+                    bannedChampions.Add(bannedChampion);
                 }
                 live = true;
             }
