@@ -27,9 +27,16 @@ namespace riot
 
                 dynamic currentParticipantsJson = JArray.Parse(liveGameJson.participants.ToString());
 
+                List<GameCustomizationObject> gameCustomizationObjects = new List<GameCustomizationObject>();
                 foreach (var participant in currentParticipantsJson)
                 {
-                    CurrentGameParticipant currentGameParticipant = new CurrentGameParticipant(participant.summonerName.Value.ToString(), participant.championId.Value.ToString(), participant.summonerId.Value.ToString());
+                    dynamic participantGameCusomizationObjectsJson = JArray.Parse(participant.gameCustomizationObjects.ToString());
+                    foreach(var gameCustomizaionObjectJson in participantGameCusomizationObjectsJson){
+                        GameCustomizationObject gameCustomizationObject = new GameCustomizationObject(gameCustomizaionObjectJson.category.Value.ToString(), gameCustomizaionObjectJson.content.Value.ToString());
+                        gameCustomizationObjects.Add(gameCustomizationObject);
+                    }
+                    
+                    CurrentGameParticipant currentGameParticipant = new CurrentGameParticipant(participant.summonerName.Value.ToString(), participant.championId.Value.ToString(), participant.summonerId.Value.ToString(), gameCustomizationObjects);
                     currentGameParticipants.Add(currentGameParticipant);
                 }
 
@@ -45,16 +52,32 @@ namespace riot
 
         public class CurrentGameParticipant
         {
-            public CurrentGameParticipant(string _summonerName, string _championId, string _summonerId)
+            public CurrentGameParticipant(string _summonerName, string _championId, string _summonerId, List<GameCustomizationObject> _gameCustomizationObjects)
             {
                 summonerName = _summonerName;
                 championId = _championId;
                 summonerId = _summonerId;
+                gameCustomizationObjects = _gameCustomizationObjects;
             }
+
             public string summonerName { get; }
             public string championId { get; }
             public string summonerId { get; }
+            public List<GameCustomizationObject>  gameCustomizationObjects;
         }
+
+        public class GameCustomizationObject
+        {
+            public string category { get; }
+            public string content { get; }
+            public GameCustomizationObject(string _category, string _content){
+                category = _category;
+                content = _content;
+            }
+        }
+
+
+
         public void GetSummonerRanks()
         {
             foreach (var participant in currentGameParticipants)
