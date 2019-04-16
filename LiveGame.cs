@@ -26,7 +26,7 @@ namespace riot
                 dynamic liveGameJson = JObject.Parse(t.Result.Content.ReadAsStringAsync().Result.ToString());
 
                 dynamic currentParticipantsJson = JArray.Parse(liveGameJson.participants.ToString());
-
+ 
                 List<GameCustomizationObject> gameCustomizationObjects = new List<GameCustomizationObject>();
                 foreach (var participant in currentParticipantsJson)
                 {
