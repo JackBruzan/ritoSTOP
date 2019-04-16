@@ -4,7 +4,6 @@ using Newtonsoft.Json.Linq;
 
 namespace riot
 {
-
     public class Summoner
     {
         public string summonerName;
@@ -12,21 +11,19 @@ namespace riot
         {
             HttpClient client = new HttpClient();
             summonerName = summoner;
-            string summonerAPI = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/";
-            string apiKey = "?api_key=RGAPI-57bd5937-cc40-4088-a10a-a077c2113b46";
-            string fullAPI = $"{summonerAPI}{summoner}{apiKey}";
+            string apiKey = "RGAPI-7bdf5f7e-bc68-4741-b9a2-0d470ee3d62b";
 
-            var t = client.GetAsync($"{fullAPI}");
+            var t = client.GetAsync($"https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{summoner}?api_key={API.apiKey}");
+            dynamic summonerJson = JObject.Parse(t.Result.Content.ReadAsStringAsync().Result.ToString());
 
-            dynamic gameJson = JObject.Parse(t.Result.Content.ReadAsStringAsync().Result.ToString());
-
-            profileIconId = gameJson.profileIconId;
-            name = gameJson.name;
-            puuid = gameJson.puuid;
-            summonerLevel = gameJson.summonerLevel;
-            revisionDate = gameJson.revisionDate;
-            id = gameJson.id;
-            accountId = gameJson.accountId;
+            profileIconId = summonerJson.profileIconId;
+            accountId = summonerJson.accountId;
+            name = summonerJson.name;
+            puuid = summonerJson.puuid;
+            summonerLevel = summonerJson.summonerLevel;
+            revisionDate = summonerJson.revisionDate;
+            id = summonerJson.id;
+            league = new League(id);
         }
 
         int profileIconId { get; }
@@ -34,8 +31,8 @@ namespace riot
         string puuid { get; }
         long summonerLevel { get; }
         long revisionDate { get; }
-        string id { get; }
-        string accountId { get; }
-
+        public string id { get; }
+        public string accountId { get; }
+        public League league{get;}
     }
 }

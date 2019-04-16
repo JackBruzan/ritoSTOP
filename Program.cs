@@ -9,7 +9,12 @@ namespace riot
     {
         static void Main(string[] args)
         {
-            Game game = new Game(2936546794);
+            Summoner summoner = new Summoner("unfeasib");
+            LiveGame liveGame = new LiveGame(summoner.id);
+
+            liveGame.GetSummonerRanks();
+
+            //Game game = new Game(2936546794);
         }
     }
 }
