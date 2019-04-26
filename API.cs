@@ -1,5 +1,5 @@
 namespace riot{
     public class API{
-        public const string apiKey = "RGAPI-7bdf5f7e-bc68-4741-b9a2-0d470ee3d62b";
+        public const string apiKey = "RGAPI-6d7dde6b-bd46-4e0f-9d99-6f494775043a";
     }
 }
